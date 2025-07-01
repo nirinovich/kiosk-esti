@@ -11,7 +11,15 @@ class RegisterScreen(Screen):
         nom = self.ids.nom_input.text
         email = self.ids.email_input.text
         mot_de_passe = self.ids.mdp_input.text
+        confirm_mdp = self.ids.confirm_mdp_input.text
         role = self.ids.role_input.text
+        
+
+        if mot_de_passe != confirm_mdp:
+            popup = Popup(title="Erreur", content=Label(text="Les mots de passe ne correspondent pas !"),
+                          size_hint=(0.6, 0.4))
+            popup.open()
+            return
 
         if nom and email and mot_de_passe and role in ['admin', 'vendeur']:
             ajouter_utilisateur(nom, email, mot_de_passe, role)
