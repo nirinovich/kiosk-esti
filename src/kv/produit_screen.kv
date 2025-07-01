@@ -19,12 +19,6 @@
             md_bg_color: get_color_from_hex("#FFFFFF")
             elevation: 2
 
-            MDTextField:
-                id: search_input
-                on_text: root.filtrer_produits(self.text)
-                MDTextFieldHintText:
-                    text: "Rechercher un produit..."
-
             MDLabel:
                 text: "Liste des Produits"
                 font_size: "22sp"
@@ -33,6 +27,13 @@
                 theme_text_color: "Primary"
                 size_hint_y: None
                 height: dp(40)
+
+
+            MDTextField:
+                id: search_input
+                on_text: root.filtrer_produits(self.text)
+                MDTextFieldHintText:
+                    text: "Rechercher un produit..."
 
             MDScrollView:
                 do_scroll_x: False
