@@ -1,0 +1,116 @@
+#:kivy 2.3.1
+
+<ClientScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 15
+        canvas.before:
+            Color:
+                rgba: 0.95, 0.95, 0.95, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Gestion des Clients"
+            font_size: 30
+            bold: True
+            color: 0.1, 0.4, 0.7, 1
+            size_hint_y: None
+            height: 50
+
+        BoxLayout:
+            size_hint_y: None
+            height: 180
+            spacing: 15
+
+            BoxLayout:
+                orientation: "vertical"
+                spacing: 8
+
+                Label:
+                    text: "Nom :"
+                    size_hint_y: None
+                    height: 22
+                    bold: True
+                    color: 0.2, 0.2, 0.2, 1
+                TextInput:
+                    id: nom_input
+                    multiline: False
+                    padding: [10, 10, 10, 10]
+                    font_size: 16
+                    background_color: 1,1,1,1
+                    foreground_color: 0,0,0,1
+
+                Label:
+                    text: "Téléphone :"
+                    size_hint_y: None
+                    height: 22
+                    bold: True
+                    color: 0.2, 0.2, 0.2, 1
+                TextInput:
+                    id: tel_input
+                    multiline: False
+                    padding: [10, 10, 10, 10]
+                    font_size: 16
+                    input_filter: "int"
+                    background_color: 1,1,1,1
+                    foreground_color: 0,0,0,1
+
+                Label:
+                    text: "Adresse :"
+                    size_hint_y: None
+                    height: 22
+                    bold: True
+                    color: 0.2, 0.2, 0.2, 1
+                TextInput:
+                    id: adresse_input
+                    multiline: False
+                    padding: [10, 10, 10, 10]
+                    font_size: 16
+                    background_color: 1,1,1,1
+                    foreground_color: 0,0,0,1
+
+            Button:
+                text: "Ajouter"
+                size_hint_x: 0.25
+                background_color: 0.1, 0.5, 0.8, 1
+                color: 1,1,1,1
+                font_size: 18
+                bold: True
+                on_release:
+                    root.ajouter_client(
+                    nom_input.text,
+                    tel_input.text,
+                    adresse_input.text
+                    )
+                    nom_input.text = ""
+                    tel_input.text = ""
+                    adresse_input.text = ""
+
+        Label:
+            text: root.message
+            size_hint_y: None
+            height: 30
+            color: (1, 0, 0, 1)
+            font_size: 16
+
+        ScrollView:
+            GridLayout:
+                id: client_list
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: 40
+                row_force_default: True
+
+        Button:
+            text: "Retour à l'accueil"
+            size_hint_y: None
+            height: 45
+            background_color: 0.8, 0.1, 0.1, 1
+            color: 1,1,1,1
+            font_size: 18
+            bold: True
+            on_release: root.manager.current = "home"
