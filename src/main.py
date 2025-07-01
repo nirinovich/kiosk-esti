@@ -14,6 +14,8 @@ from kivymd.app import MDApp
 
 
 class EpicerieApp(MDApp):
+    icon = "assets/logo.png" 
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.utilisateur_role = None

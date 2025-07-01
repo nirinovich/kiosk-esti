@@ -1,116 +1,109 @@
 #:kivy 2.3.1
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import dp kivy.metrics.dp
 
 <ClientScreen>:
-    BoxLayout:
-        orientation: "vertical"
-        padding: 20
-        spacing: 15
-        canvas.before:
-            Color:
-                rgba: 0.95, 0.95, 0.95, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
+    name: "clients"
+    MDBoxLayout:
+        orientation: "horizontal"
+        padding: [dp(40), dp(40), dp(40), dp(40)]
+        spacing: dp(24)
+        md_bg_color: get_color_from_hex("#F5F6FA")
 
-        Label:
-            text: "Gestion des Clients"
-            font_size: 30
-            bold: True
-            color: 0.1, 0.4, 0.7, 1
-            size_hint_y: None
-            height: 50
+        # --- Left: Client List ---
+        MDCard:
+            orientation: "vertical"
+            size_hint_x: 0.45
+            padding: dp(18)
+            radius: [dp(24),]
+            md_bg_color: get_color_from_hex("#FFFFFF")
+            elevation: 2
 
-        BoxLayout:
-            size_hint_y: None
-            height: 180
-            spacing: 15
-
-            BoxLayout:
-                orientation: "vertical"
-                spacing: 8
-
-                Label:
-                    text: "Nom :"
-                    size_hint_y: None
-                    height: 22
-                    bold: True
-                    color: 0.2, 0.2, 0.2, 1
-                TextInput:
-                    id: nom_input
-                    multiline: False
-                    padding: [10, 10, 10, 10]
-                    font_size: 16
-                    background_color: 1,1,1,1
-                    foreground_color: 0,0,0,1
-
-                Label:
-                    text: "Téléphone :"
-                    size_hint_y: None
-                    height: 22
-                    bold: True
-                    color: 0.2, 0.2, 0.2, 1
-                TextInput:
-                    id: tel_input
-                    multiline: False
-                    padding: [10, 10, 10, 10]
-                    font_size: 16
-                    input_filter: "int"
-                    background_color: 1,1,1,1
-                    foreground_color: 0,0,0,1
-
-                Label:
-                    text: "Adresse :"
-                    size_hint_y: None
-                    height: 22
-                    bold: True
-                    color: 0.2, 0.2, 0.2, 1
-                TextInput:
-                    id: adresse_input
-                    multiline: False
-                    padding: [10, 10, 10, 10]
-                    font_size: 16
-                    background_color: 1,1,1,1
-                    foreground_color: 0,0,0,1
-
-            Button:
-                text: "Ajouter"
-                size_hint_x: 0.25
-                background_color: 0.1, 0.5, 0.8, 1
-                color: 1,1,1,1
-                font_size: 18
+            MDLabel:
+                text: "Liste des Clients"
+                font_size: "22sp"
                 bold: True
-                on_release:
-                    root.ajouter_client(
-                    nom_input.text,
-                    tel_input.text,
-                    adresse_input.text
-                    )
-                    nom_input.text = ""
-                    tel_input.text = ""
-                    adresse_input.text = ""
-
-        Label:
-            text: root.message
-            size_hint_y: None
-            height: 30
-            color: (1, 0, 0, 1)
-            font_size: 16
-
-        ScrollView:
-            GridLayout:
-                id: client_list
-                cols: 1
+                halign: "center"
+                theme_text_color: "Primary"
                 size_hint_y: None
-                height: self.minimum_height
-                row_default_height: 40
-                row_force_default: True
+                height: dp(40)
 
-        Button:
-            text: "Retour à l'accueil"
-            size_hint_y: None
-            height: 45
-            background_color: 0.8, 0.1, 0.1, 1
-            color: 1,1,1,1
-            font_size: 18
-            bold: True
-            on_release: root.manager.current = "home"
+            MDScrollView:
+                MDList:
+                    id: client_list
+
+        # --- Right: Client Form & Actions ---
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.55
+            spacing: dp(18)
+
+            MDLabel:
+                text: "Gestion des Clients"
+                font_size: "28sp"
+                bold: True
+                halign: "center"
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: dp(48)
+
+            MDCard:
+                orientation: "vertical"
+                padding: dp(24)
+                md_bg_color: get_color_from_hex("#FFFFFF")
+                elevation: 2
+                size_hint_y: None
+                height: dp(250)
+
+                MDGridLayout:
+                    cols: 1
+                    spacing: dp(18)
+                    size_hint_y: None
+                    height: dp(180)
+
+                    MDTextField:
+                        id: nom_input
+                        MDTextFieldHintText:
+                            text: "Nom du client"
+
+                    MDTextField:
+                        id: tel_input
+                        input_filter: "int"
+                        MDTextFieldHintText:
+                            text: "Téléphone du client"
+
+                    MDTextField:
+                        id: adresse_input
+                        MDTextFieldHintText:
+                            text: "Adresse du client"
+
+                MDButton:
+                    style: "filled"
+                    md_bg_color: get_color_from_hex("#1976D2")
+                    pos_hint: {"center_x": 0.5}
+                    on_release:
+                        root.ajouter_client(nom_input.text, tel_input.text, adresse_input.text); nom_input.text = ""; tel_input.text = ""; adresse_input.text = ""
+                    MDButtonText:
+                        text: "Ajouter"
+
+            MDLabel:
+                text: root.message
+                theme_text_color: "Error"
+                font_size: "16sp"
+                halign: "center"
+                size_hint_y: None
+                height: dp(28)
+
+            MDBoxLayout:
+                size_hint_y: None
+                height: dp(56)
+                spacing: dp(12)
+
+                MDButton:
+                    style: "filled"
+                    md_bg_color: get_color_from_hex("#B71C1C")
+                    on_release: root.manager.current = "home"
+                    MDButtonText:
+                        text: "Retour"
+                    MDButtonIcon:
+                        icon: "arrow-left"
