@@ -113,24 +113,31 @@ class VenteScreen(Screen):
             return
 
         vente_id = self.vente_ctrl.creer_vente(client_id, utilisateur_id, self.panier)
-        self.panier = []
-        self.calculer_total()
-        self.afficher_panier()
-        self.message = f"Vente enregistrée (ID: {vente_id})"
-        self.charger_produits()  # pour rafraîchir stock si tu as gestion stock dans controller
-        # Afficher une popup de confirmation
+        # Générer le texte de la facture AVANT de vider le panier
+        facture_texte = f"Facture n°{vente_id}\nClient: {client_id}\n---\n"
+        for item in self.panier:
+            facture_texte += f"{item['nom']} x{item['quantite']} : {item['prix_total']} Ar\n"
+        facture_texte += f"\nTotal: {self.total} Ar"
+        # Afficher la facture dans une popup
         from kivy.uix.popup import Popup
         from kivy.uix.label import Label
         from kivy.uix.button import Button
         from kivy.uix.boxlayout import BoxLayout
         box = BoxLayout(orientation='vertical', spacing=10, padding=10)
-        box.add_widget(Label(text=f"Vente enregistrée avec succès !\nID : {vente_id}", font_size=18))
+        box.add_widget(Label(text=facture_texte, font_size=16))
         btn_ok = Button(text="OK", size_hint_y=None, height=40)
         box.add_widget(btn_ok)
-        popup = Popup(title="Confirmation", content=box, size_hint=(0.5,0.3))
+        popup = Popup(title="Facture", content=box, size_hint=(0.6,0.5))
         btn_ok.bind(on_release=popup.dismiss)
         popup.open()
-        # Réinitialiser les sélections
+        # Ensuite seulement vider le panier et réinitialiser l'affichage
+        self.panier = []
+        self.calculer_total()
+        self.afficher_panier()
+        self.message = f"Vente enregistrée (ID: {vente_id})"
+        self.charger_produits()
+        if self.manager.has_screen("produits"):
+            self.manager.get_screen("produits").charger_produits()
         self.ids.client_spinner.text = "Sélectionner un client"
         self.ids.produit_spinner.text = "Sélectionner un produit"
 
