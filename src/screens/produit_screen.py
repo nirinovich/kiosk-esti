@@ -21,6 +21,9 @@ class ProduitScreen(Screen):
         self.controller = ProduitController(utilisateur_id=self.utilisateur_id)
         self.charger_produits()
 
+    def on_pre_enter(self):
+        self.charger_produits()
+
     def ouvrir_popup_ajout(self):
         box = BoxLayout(orientation='vertical', spacing=10, padding=10)
         nom_input = self._popup_input('Nom')

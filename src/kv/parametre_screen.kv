@@ -1,0 +1,110 @@
+#:kivy 2.3.1
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import dp kivy.metrics.dp
+
+<ParametreScreen>:
+    name: "parametres"
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: [dp(40), dp(40), dp(40), dp(40)]
+        spacing: dp(30)
+        md_bg_color: get_color_from_hex("#F5F6FA")
+
+        MDLabel:
+            text: "Paramètres"
+            font_size: "32sp"
+            bold: True
+            halign: "center"
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(60)
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(24)
+            size_hint: None, None
+            size: dp(600), dp(320)
+            elevation: 8
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            md_bg_color: get_color_from_hex("#FFFFFF")
+
+            MDButton:
+                style: "text"
+                size_hint: None, None
+                size: dp(48), dp(48)
+                pos_hint: {"center_x": 0.0}
+                on_release: app.root.current = "home"
+                MDButtonIcon:
+                    icon: "arrow-left"
+                MDButtonText:
+                    text: "Retour"
+
+            MDLabel:
+                text: "Sécurité & Préférences"
+                font_size: "20sp"
+                bold: True
+                halign: "center"
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: dp(36)
+
+            MDGridLayout:
+                cols: 2
+                spacing: dp(20)
+                size_hint_y: None
+                height: dp(120)
+
+                MDTextField:
+                    id: new_password_input
+                    hint_text: "Entrer un nouveau mot de passe sécurisé"
+                    password: True
+                    icon_left: "lock-reset"
+                    mode: "outlined"
+                    size_hint: 1, None
+                    height: dp(56)
+                    pos_hint: {"center_x": 0.5}
+
+                MDButton:
+                    style: "elevated"
+                    size_hint: 1, None
+                    height: dp(56)
+                    on_release: root.changer_mot_de_passe()
+                    MDButtonIcon:
+                        icon: "key-change"
+                    MDButtonText:
+                        text: "Changer le mot de passe"
+
+                MDWidget:
+                    size_hint: 1, None
+                    height: dp(56)
+
+                MDButton:
+                    style: "outlined"
+                    size_hint: 1, None
+                    height: dp(56)
+                    on_release: root.basculer_theme()
+                    MDButtonIcon:
+                        icon: "theme-light-dark"
+                    MDButtonText:
+                        text: "Thème : Clair/Sombre"
+
+            MDLabel:
+                text: "Informations"
+                font_size: "20sp"
+                bold: True
+                halign: "center"
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: dp(36)
+
+            MDLabel:
+                text: "Utilisateur : admin"
+                theme_text_color: "Hint"
+                font_size: "16sp"
+                halign: "center"
+
+            MDLabel:
+                text: "Version : 1.0.0"
+                theme_text_color: "Hint"
+                font_size: "16sp"
+                halign: "center"
