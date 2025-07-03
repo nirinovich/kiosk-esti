@@ -5,11 +5,24 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivymd.app import MDApp
 from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import StringProperty
+from controllers.vente_controller import VenteController
+from kivy.app import App
+from datetime import datetime, timedelta
+from models.detail_vente import get_details_par_vente
+from models.produits import get_produit
 
 Builder.load_file("kv/parametre_screen.kv")
 
 class ParametreScreen(Screen):
+    utilisateur_nom = StringProperty("")
+    utilisateur_role = StringProperty("")
     dialog = None
+
+    def on_pre_enter(self, *args):
+        app = MDApp.get_running_app()
+        self.utilisateur_nom = app.utilisateur_nom or "-"
+        self.utilisateur_role = app.utilisateur_role or "-"
 
     def show_dialog(self, title, text):
         box = BoxLayout(orientation='vertical', spacing=10, padding=20)

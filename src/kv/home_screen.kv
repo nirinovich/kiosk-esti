@@ -81,6 +81,27 @@
                     MDButtonText:
                         text: "Paramètres"
 
+                MDButton:
+                    style: "elevated"
+                    size_hint: 1, None
+                    on_release: app.root.current = "stock"
+                    height: dp(80)
+                    MDButtonIcon:
+                        icon: "warehouse"
+                    MDButtonText:
+                        text: "Gestion du Stock"
+
+                MDButton:
+                    style: "elevated"
+                    size_hint: 1, None
+                    on_release: app.root.current = "statistiques"
+                    height: dp(80)
+                    MDButtonIcon:
+                        icon: "cog"
+                    MDButtonText:
+                        text: "statistiques"
+
+
         MDButton:
             style: "filled"
             pos_hint: {"center_x": 0.94, "center_y": 0.5}

@@ -1,0 +1,127 @@
+#:kivy 2.3.1
+#:import dp kivy.metrics.dp
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<StatistiqueScreen>:
+    name: "statistiques"
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: [dp(40), dp(40), dp(40), dp(40)]
+        spacing: dp(30)
+        md_bg_color: get_color_from_hex("#F5F6FA")
+
+        MDLabel:
+            text: "Statistiques"
+            font_size: "32sp"
+            bold: True
+            halign: "center"
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(60)
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(16)
+            md_bg_color: get_color_from_hex("#E8F5E9")
+            size_hint_y: None
+            height: dp(120)
+            MDBoxLayout:
+                orientation: "horizontal"
+                spacing: dp(8)
+                MDButtonIcon:
+                    icon: "bank"
+                    theme_icon_color: "Custom"
+                    icon_color: 0.2, 0.7, 0.2, 1
+                MDLabel:
+                    text: "Argent encaissé"
+                    font_size: "18sp"
+                    bold: True
+                    theme_text_color: "Secondary"
+            MDLabel:
+                id: argent_encaisse
+                text: root.argent_encaisse
+                font_size: "28sp"
+                bold: True
+                theme_text_color: "Primary"
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(16)
+            md_bg_color: get_color_from_hex("#E3F2FD")
+            size_hint_y: None
+            height: dp(320)
+            spacing: dp(10)
+            MDLabel:
+                text: "Produits les plus vendus"
+                font_size: "20sp"
+                bold: True
+                theme_text_color: "Primary"
+                halign: "center"
+                size_hint_y: None
+                height: dp(36)
+            MDBoxLayout:
+                orientation: "horizontal"
+                spacing: dp(10)
+                size_hint_y: None
+                height: dp(44)
+                padding: [0, 0, 0, 0]
+                MDButton:
+                    style: "filled" if root.periode=='jour' else "text"
+                    text: "Aujourd'hui"
+                    md_bg_color: (0.1, 0.5, 0.9, 1) if root.periode=='jour' else (0.85, 0.85, 0.85, 1)
+                    text_color: (1,1,1,1) if root.periode=='jour' else (0.2,0.2,0.2,1)
+                    on_release: root.set_periode('jour')
+                MDButton:
+                    style: "filled" if root.periode=='7j' else "text"
+                    text: "7 jours"
+                    md_bg_color: (0.1, 0.5, 0.9, 1) if root.periode=='7j' else (0.85, 0.85, 0.85, 1)
+                    text_color: (1,1,1,1) if root.periode=='7j' else (0.2,0.2,0.2,1)
+                    on_release: root.set_periode('7j')
+                MDButton:
+                    style: "filled" if root.periode=='mois' else "text"
+                    text: "Ce mois"
+                    md_bg_color: (0.1, 0.5, 0.9, 1) if root.periode=='mois' else (0.85, 0.85, 0.85, 1)
+                    text_color: (1,1,1,1) if root.periode=='mois' else (0.2,0.2,0.2,1)
+                    on_release: root.set_periode('mois')
+                MDButton:
+                    style: "filled" if root.periode=='annee' else "text"
+                    text: "Cette année"
+                    md_bg_color: (0.1, 0.5, 0.9, 1) if root.periode=='annee' else (0.85, 0.85, 0.85, 1)
+                    text_color: (1,1,1,1) if root.periode=='annee' else (0.2,0.2,0.2,1)
+                    on_release: root.set_periode('annee')
+            ScrollView:
+                MDList:
+                    id: produits_vendus_list
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(16)
+            md_bg_color: get_color_from_hex("#F3E5F5")
+            size_hint_y: None
+            height: dp(180)
+            MDLabel:
+                text: "Graphique des ventes"
+                font_size: "18sp"
+                theme_text_color: "Secondary"
+            Image:
+                id: graph_image
+                allow_stretch: True
+                keep_ratio: True
+                size_hint_y: None
+                height: dp(140)
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: dp(56)
+            Widget:
+            MDButton:
+                style: "text"
+                size_hint: None, None
+                size: dp(56), dp(56)
+                pos_hint: {"right": 1}
+                on_release: app.root.current = "home"
+                MDButtonIcon:
+                    icon: "arrow-left"
+                MDButtonText:
+                    text: "Retour"

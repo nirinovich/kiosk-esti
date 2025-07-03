@@ -3,7 +3,6 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from kivy.app import App
-from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
 from screens.client_screen import ClientScreen
 from screens.produit_screen import ProduitScreen
@@ -11,7 +10,10 @@ from screens.vente_screen import VenteScreen
 from screens.login_screen import LoginScreen
 from screens.register_screen import RegisterScreen
 from screens.home_screen import HomeScreen
+from kivymd.app import MDApp
 from screens.parametre_screen import ParametreScreen
+from screens.stock_screen import StockScreen
+from screens.statistique_screen import StatistiqueScreen
 
 
 class EpicerieApp(MDApp):
@@ -19,6 +21,7 @@ class EpicerieApp(MDApp):
         super().__init__(**kwargs)
         self.utilisateur_role = None
         self.utilisateur_id = None  # Stocke l'id de l'utilisateur connecté
+        self.utilisateur_nom = None  # Stocke le nom de l'utilisateur connecté
         self.sm = None
     
     def build(self):
@@ -27,6 +30,8 @@ class EpicerieApp(MDApp):
         self.sm.add_widget(LoginScreen(name="login"))
         self.sm.add_widget(HomeScreen(name="home"))
         self.sm.add_widget(ParametreScreen(name="parametres"))
+        self.sm.add_widget(StockScreen(name="stock"))
+        self.sm.add_widget(StatistiqueScreen(name="statistiques"))
         self.ajouter_ecrans_utilisateur()
         self.ajouter_vente_screen_utilisateur()
 

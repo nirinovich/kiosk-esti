@@ -16,9 +16,11 @@ class LoginScreen(Screen):
 
         if utilisateur:
             role = utilisateur[4]  
+            nom = utilisateur[1]  # On suppose que le nom est à l'index 1
             app = App.get_running_app()
             app.utilisateur_role = role
             app.utilisateur_id = utilisateur[0]  # Stocke l'id utilisateur
+            app.utilisateur_nom = nom  # Stocke le nom utilisateur
             app.ajouter_ecrans_utilisateur()  # Recrée les écrans avec le bon id
             app.ajouter_vente_screen_utilisateur()  # Recrée l'écran vente avec le bon id
             self.manager.current = "home" 
