@@ -5,7 +5,6 @@ from controllers.client_controller import ClientController
 from controllers.produit_controller import ProduitController
 from kivy.properties import ListProperty, StringProperty, NumericProperty
 from kivy.uix.recycleview.views import RecycleDataViewBehavior
-from kivy.uix.behaviors import FocusBehavior
 from kivy.uix.recycleview.layout import LayoutSelectionBehavior
 from kivy.uix.recycleboxlayout import RecycleBoxLayout
 from kivy.uix.recycleview import RecycleView
