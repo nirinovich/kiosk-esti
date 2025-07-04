@@ -54,3 +54,13 @@ def lister_utilisateurs():
     utilisateurs = curseur.fetchall()
     conn.close()
     return utilisateurs
+
+def changer_mot_de_passe(email, nouveau_mdp):
+    conn = get_connexion()
+    curseur = conn.cursor()
+    hashed = bcrypt.hashpw(nouveau_mdp.encode('utf-8'), bcrypt.gensalt())
+    curseur.execute("""
+        UPDATE utilisateurs SET mot_de_passe = ? WHERE email = ?
+    """, (hashed, email))
+    conn.commit()
+    conn.close()

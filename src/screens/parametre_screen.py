@@ -11,6 +11,7 @@ from kivy.app import App
 from datetime import datetime, timedelta
 from models.detail_vente import get_details_par_vente
 from models.produits import get_produit
+from models.utilisateurs import changer_mot_de_passe
 
 Builder.load_file("kv/parametre_screen.kv")
 
@@ -35,12 +36,25 @@ class ParametreScreen(Screen):
 
     def changer_mot_de_passe(self):
         new_password = self.ids.new_password_input.text
-        if not new_password:
-            self.show_dialog("Erreur", "Veuillez entrer un nouveau mot de passe.")
+        confirm_password = self.ids.confirm_password_input.text
+        if not new_password or not confirm_password:
+            self.show_dialog("Erreur", "Veuillez remplir les deux champs de mot de passe.")
             return
-        # Ici, ajoute la logique réelle de changement de mot de passe
-        self.show_dialog("Succès", "Mot de passe changé (simulation).")
+        if len(new_password) < 6:
+            self.show_dialog("Erreur", "Le mot de passe doit contenir au moins 6 caractères.")
+            return
+        if new_password != confirm_password:
+            self.show_dialog("Erreur", "Les mots de passe ne correspondent pas.")
+            return
+        app = MDApp.get_running_app()
+        email = getattr(app, 'utilisateur_email', None)
+        if not email:
+            self.show_dialog("Erreur", "Impossible de retrouver l'email utilisateur.")
+            return
+        changer_mot_de_passe(email, new_password)
+        self.show_dialog("Succès", "Mot de passe changé avec succès.")
         self.ids.new_password_input.text = ""
+        self.ids.confirm_password_input.text = ""
 
     def toggle_theme(self):
         app = MDApp.get_running_app()
