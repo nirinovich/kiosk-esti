@@ -1,0 +1,158 @@
+#:kivy 2.3.1
+
+<VenteScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 15
+        canvas.before:
+            Color:
+                rgba: 0.95, 0.95, 0.95, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Nouvelle Vente"
+            font_size: 30
+            bold: True
+            color: 0.1, 0.4, 0.7, 1
+            size_hint_y: None
+            height: 50
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            spacing: 15
+
+            Label:
+                text: "Client :"
+                size_hint_x: None
+                width: 70
+                bold: True
+                color: 0.15, 0.15, 0.15, 1
+
+            Spinner:
+                id: client_spinner
+                text: "Sélectionner un client"
+                values: [str(c[1]) for c in root.clients]
+                size_hint_x: None
+                width: 230
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            spacing: 15
+
+            Label:
+                text: "Produit :"
+                size_hint_x: None
+                width: 70
+                bold: True
+                color: 0.15, 0.15, 0.15, 1
+
+            Spinner:
+                id: produit_spinner
+                text: "Sélectionner un produit"
+                values: [str(p[1]) for p in root.produits]
+                size_hint_x: None
+                width: 230
+
+            Label:
+                text: "Quantité :"
+                size_hint_x: None
+                width: 80
+                bold: True
+                color: 0.15, 0.15, 0.15, 1
+
+            TextInput:
+                id: quantite_input
+                multiline: False
+                input_filter: 'int'
+                size_hint_x: None
+                width: 80
+                padding: [10, 10, 10, 10]
+                font_size: 16
+                background_color: 1, 1, 1, 1
+                foreground_color: 0, 0, 0, 1
+
+            Button:
+                text: "Ajouter au panier"
+                size_hint_x: None
+                width: 170
+                background_color: 0.1, 0.5, 0.8, 1
+                color: 1, 1, 1, 1
+                font_size: 16
+                bold: True
+                on_release:
+                    root.ajouter_au_panier(
+                    root.produits[produit_spinner.values.index(produit_spinner.text)][0] if produit_spinner.text != "Sélectionner un produit" else None,
+                    quantite_input.text
+                    )
+                    quantite_input.text = ""
+
+        Label:
+            text: root.message
+            size_hint_y: None
+            height: 30
+            color: (1, 0, 0, 1)
+            font_size: 16
+
+        Label:
+            text: "Panier :"
+            size_hint_y: None
+            height: 30
+            font_size: 22
+            bold: True
+            color: 0.1, 0.4, 0.7, 1
+
+        ScrollView:
+            size_hint_y: 0.4
+            GridLayout:
+                id: panier_list
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: 40
+                row_force_default: True
+
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            spacing: 15
+
+            Label:
+                text: "Total :"
+                size_hint_x: None
+                width: 70
+                font_size: 18
+                bold: True
+                color: 0.1, 0.4, 0.7, 1
+
+            Label:
+                text: str(root.total)
+                bold: True
+                font_size: 18
+                color: 0.1, 0.4, 0.7, 1
+
+            Button:
+                text: "Valider la vente"
+                background_color: 0.1, 0.5, 0.8, 1
+                color: 1, 1, 1, 1
+                font_size: 18
+                bold: True
+                on_release:
+                    root.valider_vente(
+                    root.clients[root.clients.index(next(c for c in root.clients if c[1] == client_spinner.text))][0]
+                    if client_spinner.text != "Sélectionner un client" else None
+                    )
+
+        Button:
+            text: "Retour à l'accueil"
+            size_hint_y: None
+            height: 45
+            background_color: 0.8, 0.1, 0.1, 1
+            color: 1, 1, 1, 1
+            font_size: 18
+            bold: True
+            on_release: root.manager.current = "home"

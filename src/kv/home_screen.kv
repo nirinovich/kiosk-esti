@@ -1,0 +1,119 @@
+#:kivy 2.3.1
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import dp kivy.metrics.dp
+
+<HomeScreen>:
+    name: "dashboard"
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: [dp(40), dp(40), dp(40), dp(40)]
+        spacing: dp(30)
+        md_bg_color: get_color_from_hex("#F5F6FA")
+
+        FitImage:
+            source: "assets/logo.png"
+            size_hint: None, None
+            size: dp(100), dp(100)  
+            pos_hint: {"center_x": 0.5}
+
+        MDLabel:
+            text: "Bienvenu(e) sur K'iosk"
+            font_size: "32sp"
+            bold: True
+            halign: "center"
+            theme_text_color: "Primary"
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(24)
+            size_hint: None, None
+            size: dp(460), dp(330)
+            elevation: 8
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            md_bg_color: get_color_from_hex("#FFFFFF")
+
+            MDGridLayout:
+                cols: 2
+                spacing: dp(20)
+                size_hint_y: None
+                size_hint_x: None
+                height: dp(280)
+                width: dp(520)
+
+                MDButton:
+                    style: "filled"
+                    size_hint: 1, None
+                    on_release: app.root.current = "ventes"
+                    height: dp(80)
+                    theme_bg_color: "Custom"
+                    md_bg_color: "green"
+
+                    MDButtonIcon:
+                        icon: "cash-register"
+                    MDButtonText:
+                        text: "     Nouvelle Vente    "
+
+                MDButton:
+                    style: "elevated"
+                    size_hint: 1, None
+                    on_release: app.root.current = "produits"
+                    height: dp(80)
+
+                    MDButtonIcon:
+                        icon: "package-variant"
+                    MDButtonText:
+                        text: "Gestion des Produits"
+
+                MDButton:
+                    style: "elevated"
+                    size_hint: 1, None
+                    on_release: app.root.current = "clients"
+                    height: dp(80)
+
+                    MDButtonIcon:
+                        icon: "account-group"
+                    MDButtonText:
+                        text: "Gestion des Clients "
+
+
+                MDButton:
+                    style: "elevated"
+                    size_hint: 1, None
+                    on_release: app.root.current = "stock"
+                    height: dp(80)
+                    MDButtonIcon:
+                        icon: "warehouse"
+                    MDButtonText:
+                        text: "   Gestion du Stock    "
+
+                MDButton:
+                    style: "elevated"
+                    size_hint: 1, None
+                    on_release: app.root.current = "statistiques"
+                    height: dp(80)
+                    MDButtonIcon:
+                        icon: "finance"
+                    MDButtonText:
+                        text: "       Statistiques        "
+
+                MDButton:
+                    style: "elevated"
+                    size_hint: 1, None
+                    on_release: app.root.current = "parametres"
+                    height: dp(80)
+                    MDButtonIcon:
+                        icon: "cog"
+                    MDButtonText:
+                        text: "         Paramètres         "
+
+
+        MDButton:
+            style: "filled"
+            pos_hint: {"center_x": 0.9, "center_y": 0.5}
+            on_release: app.root.current = "login"
+            theme_bg_color: "Custom"
+            md_bg_color: "brown"
+            MDButtonIcon:
+                icon: "location-exit"
+            MDButtonText:
+                text: "     Déconnexion      "

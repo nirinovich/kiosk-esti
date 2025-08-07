@@ -1,0 +1,136 @@
+#:kivy 2.3.1
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import dp kivy.metrics.dp
+
+<ProduitScreen>:
+    name: "produits"
+    MDBoxLayout:
+        orientation: "horizontal"
+        padding: [dp(40), dp(40), dp(40), dp(40)]
+        spacing: dp(24)
+        md_bg_color: get_color_from_hex("#F5F6FA")
+
+        # --- Left: Product List ---
+        MDCard:
+            orientation: "vertical"
+            size_hint_x: 0.45
+            padding: dp(18)
+            radius: [dp(24),]
+            md_bg_color: get_color_from_hex("#FFFFFF")
+            elevation: 2
+
+            MDLabel:
+                text: "Liste des Produits"
+                font_size: "22sp"
+                bold: True
+                halign: "center"
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: dp(40)
+
+            MDTextField:
+                id: search_input
+                on_text: root.filtrer_produits(self.text)
+                MDTextFieldHintText:
+                    text: "Rechercher un produit..."
+
+            MDScrollView:
+                do_scroll_x: False
+
+                MDBoxLayout:
+                    id: produit_list
+                    orientation: "vertical"
+                    adaptive_height: True
+
+        # --- Right: Product Form & Actions ---
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.55
+            spacing: dp(18)
+
+            MDLabel:
+                text: "Gestion des Produits"
+                font_size: "28sp"
+                bold: True
+                halign: "center"
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: dp(48)
+
+            MDCard:
+                orientation: "vertical"
+                padding: dp(24)
+                md_bg_color: get_color_from_hex("#FFFFFF")
+                elevation: 2
+                size_hint_y: None
+                height: dp(250)
+
+                MDGridLayout:
+                    cols: 2
+                    spacing: dp(18)
+                    size_hint_y: None
+                    height: dp(120)
+
+                    MDTextField:
+                        id: nom_input
+                        MDTextFieldHintText:
+                            text: "Nom"
+
+                    MDTextField:
+                        id: categorie_input
+                        MDTextFieldHintText:
+                            text: "Catégorie"
+
+                    MDTextField:
+                        id: prix_input
+                        input_filter: "float"
+                        MDTextFieldHintText:
+                            text: "Prix unitaire"
+
+                    MDTextField:
+                        id: stock_input
+                        input_filter: "int"
+                        MDTextFieldHintText:
+                            text: "Stock"
+
+                Widget:
+                    size_hint_y: None
+                    height: dp(30)
+
+                MDButton:
+                    style: "filled"
+                    md_bg_color: get_color_from_hex("#1976D2")
+                    pos_hint: {"center_x": 0.5}
+                    on_release:
+                        root.ajouter_produit(nom_input.text, categorie_input.text, prix_input.text, stock_input.text); nom_input.text = ""; categorie_input.text = ""; prix_input.text = ""; stock_input.text = ""
+                    MDButtonText:
+                        text: "Ajouter"
+
+            MDLabel:
+                text: root.message
+                theme_text_color: "Error"
+                font_size: "16sp"
+                halign: "center"
+                size_hint_y: None
+                height: dp(28)
+
+            MDBoxLayout:
+                size_hint_y: None
+                height: dp(56)
+                spacing: dp(12)
+
+                MDButton:
+                    style: "filled"
+                    md_bg_color: get_color_from_hex("#B71C1C")
+                    on_release: root.manager.current = "home"
+                    MDButtonText:
+                        text: "Retour à l'accueil"
+                    
+                    MDButtonIcon:
+                        icon: "arrow-left"
+
+                MDButton:
+                    style: "elevated"
+                    on_release: root.importer_produits_exemple()
+                    MDButtonText:
+                        text: "Importer produits exemple"

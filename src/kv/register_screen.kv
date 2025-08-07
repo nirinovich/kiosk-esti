@@ -1,0 +1,95 @@
+#:kivy 2.3.1
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import dp kivy.metrics.dp
+
+<RegisterScreen>:
+    name: "register"
+    MDBoxLayout:
+        orientation: "horizontal"
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: [dp(50), dp(50), dp(50), dp(50)]
+            spacing: dp(0)
+            size_hint_x: 0.5
+            md_bg_color: get_color_from_hex("#F5F6FA")
+
+            MDBoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: dp(56)
+                spacing: dp(10)
+
+                MDIconButton:
+                    icon: "arrow-left"
+                    on_release: app.root.current = "login"
+
+                MDLabel:
+                    text: "Créer un compte sur K'iosk"
+                    font_size: "24sp"
+                    halign: "left"
+                    valign: "middle"
+                    size_hint_y: 0.2
+                    theme_text_color: "Primary"
+
+                Widget:
+                    size_hint_x: 2
+
+            Widget:
+                size_hint_y: 6
+
+            MDBoxLayout:
+                orientation: "vertical"
+                spacing: dp(18)
+                size_hint_y: None
+                height: dp(48)*3 + dp(18)*2 + dp(60)
+
+                MDTextField:
+                    id: nom_input
+                    theme_text_color: "Secondary"
+                    MDTextFieldHintText:
+                        text: "Nom"
+
+                MDTextField:
+                    id: email_input
+                    theme_text_color: "Secondary"
+                    MDTextFieldHintText:
+                        text: "Email"
+
+                MDTextField:
+                    id: mdp_input
+                    password: True
+                    theme_text_color: "Secondary"
+                    MDTextFieldHintText:
+                        text: "Mot de passe"
+
+                MDTextField:
+                    id: confirm_mdp_input
+                    password: True
+                    theme_text_color: "Secondary"
+                    MDTextFieldHintText:
+                        text: "Confirmer le mot de passe"
+                
+                MDTextField:
+                    id: role_input
+                    multiline: False
+                    MDTextFieldHintText:
+                        text: "Rôle (admin ou vendeur)"
+
+                MDButton:
+                    style: "elevated"
+                    on_release: root.enregistrer_utilisateur()
+                    width: dp(220)
+                    pos_hint: {"center_x": 0.5}
+
+                    MDButtonIcon:
+                        icon: "plus"
+                    MDButtonText:
+                        text: "Créer un utilisateur"
+
+            Widget:
+                size_hint_y: 1
+
+        FitImage:
+            source: "assets/login_image.jpg"
+            size_hint_x: 0.5
