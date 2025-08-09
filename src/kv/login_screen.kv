@@ -6,6 +6,7 @@
     name: "login"
     MDBoxLayout:
         orientation: "horizontal"
+        md_bg_color: get_color_from_hex("#F5F6FA")
 
         FitImage:
             source: "assets/login_image.png"
@@ -13,9 +14,12 @@
 
         MDBoxLayout:
             orientation: "vertical"
-            padding: [dp(50), dp(50), dp(50), dp(50)]
+            padding: [dp(50), dp(0), dp(50), dp(0)] 
             spacing: dp(20)
             size_hint_x: 0.5
+            size_hint_y: None
+            height: self.minimum_height
+            pos_hint: {"center_y": 0.5} 
             md_bg_color: get_color_from_hex("#F5F6FA")
 
             FitImage:
@@ -73,5 +77,3 @@
 
                     MDButtonIcon:
                         icon: "account-plus"
-            Widget:
-                size_hint_y: 0.2
