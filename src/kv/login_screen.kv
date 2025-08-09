@@ -27,8 +27,9 @@
             MDLabel:
                 text: "Connexion à K'iosk"
                 font_size: "24sp"
-                size_hint_y: 0.2
+                size_hint_y: None
                 halign: "center"
+                height: self.texture_size[1]
 
             MDTextField:
                 id: email_input
@@ -45,14 +46,15 @@
 
             MDGridLayout:
                 cols: 2
-                spacing: dp(40)
-                height: dp(180)
+                spacing: dp(30)
+                size_hint: None, None
+                size: self.minimum_size
+                pos_hint: {"center_x": 0.5}  
+                padding: 0
 
                 MDButton:
                     style: "elevated"
                     on_release: root.se_connecter()
-                    pos_hint: {"center_x": 0.5, "center_y": 0.5},
-
 
                     MDButtonIcon:
                         icon: "login"
@@ -62,7 +64,6 @@
 
                 MDButton:
                     style: "elevated"
-                    pos_hint: {"center_x": 0.5, "center_y": 0.5},
 
                     on_release:
                         root.manager.current = "register"
@@ -72,3 +73,5 @@
 
                     MDButtonIcon:
                         icon: "account-plus"
+            Widget:
+                size_hint_y: 0.2
