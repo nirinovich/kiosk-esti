@@ -1,0 +1,22 @@
+#:kivy 2.3.1
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import dp kivy.metrics.dp
+
+<LoadingScreen>:
+    name: "loading"
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: get_color_from_hex("#F5F6FA")
+        padding: dp(24)
+        spacing: dp(12)
+
+        Widget:
+            size_hint_y: 1
+
+        MDLabel:
+            text: "Chargement..."
+            halign: "center"
+            theme_text_color: "Secondary"
+
+        Widget:
+            size_hint_y: 1

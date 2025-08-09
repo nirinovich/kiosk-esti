@@ -4,6 +4,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.clock import Clock
+from kivy.lang import Builder
+
+from screens.loading_screen import LoadingScreen
 from screens.client_screen import ClientScreen
 from screens.produit_screen import ProduitScreen
 from screens.vente_screen import VenteScreen
@@ -25,7 +29,13 @@ class EpicerieApp(MDApp):
         self.sm = None
     
     def build(self):
+        # Charger le KV du loading
+        kv_path = os.path.join(os.path.dirname(__file__), "kv", "loading_screen.kv")
+        if os.path.exists(kv_path):
+            Builder.load_file(kv_path)
+
         self.sm = ScreenManager()
+        self.sm.add_widget(LoadingScreen(name="loading"))
         self.sm.add_widget(RegisterScreen(name="register"))
         self.sm.add_widget(LoginScreen(name="login"))
         self.sm.add_widget(HomeScreen(name="home"))
@@ -35,8 +45,15 @@ class EpicerieApp(MDApp):
         self.ajouter_ecrans_utilisateur()
         self.ajouter_vente_screen_utilisateur()
 
-        self.sm.current = "login"
+        # Afficher d'abord l'écran de chargement
+        self.sm.current = "loading"
+
+        # Attendre un court instant puis passer à "login"
+        Clock.schedule_once(self.switch_to_login, 2.5)
         return self.sm
+
+    def switch_to_login(self, dt):
+        self.sm.current = "login"
 
     def ajouter_vente_screen_utilisateur(self):
         if self.sm.has_screen("ventes"):
