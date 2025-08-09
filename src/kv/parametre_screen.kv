@@ -15,15 +15,13 @@
             size_hint_y: None
             height: dp(48)
             MDButton:
-                style: "text"
-                size_hint: None, None
-                size: dp(48), dp(48)
-                on_release: app.root.current = "home"
+                style: "filled"
+                on_release: root.manager.current = "home"
+                MDButtonText:
+                    text: "Retour à l'accueil"
+                    
                 MDButtonIcon:
                     icon: "arrow-left"
-                MDButtonText:
-                    text: "Retour"
-
         MDLabel:
             text: "Paramètres"
             font_size: "32sp"

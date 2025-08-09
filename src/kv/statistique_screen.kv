@@ -128,10 +128,11 @@
             height: dp(56)
             Widget:
             MDButton:
-                style: "text"
-                on_release: app.root.current = "home"
+                style: "filled"
+                on_release: root.manager.current = "home"
+                MDButtonText:
+                    text: "Retour à l'accueil"
+                    
                 MDButtonIcon:
                     icon: "arrow-left"
-                MDButtonText:
-                    text: "Retour"
-                    pos_hint: {"right": 1}
+
