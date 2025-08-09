@@ -10,7 +10,6 @@
         MDBoxLayout:
             orientation: "vertical"
             padding: [dp(50), dp(50), dp(50), dp(50)]
-            spacing: dp(0)
             size_hint_x: 0.5
             md_bg_color: get_color_from_hex("#F5F6FA")
 
@@ -23,14 +22,19 @@
                 MDIconButton:
                     icon: "arrow-left"
                     on_release: app.root.current = "login"
+                    pos_hint: {"center_y": .5}
 
                 MDLabel:
                     text: "Créer un compte sur K'iosk"
                     font_size: "24sp"
                     halign: "left"
                     valign: "middle"
-                    size_hint_y: 0.2
                     theme_text_color: "Primary"
+                    size_hint_x: 1
+                    text_size: self.width, None
+                    shorten: True
+                    shorten_from: "right"
+                    max_lines: 1
 
                 Widget:
                     size_hint_x: 2
@@ -91,5 +95,5 @@
                 size_hint_y: 1
 
         FitImage:
-            source: "assets/login_image.jpg"
+            source: "assets/login_image.png"
             size_hint_x: 0.5
