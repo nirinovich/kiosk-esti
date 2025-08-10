@@ -64,17 +64,71 @@
                 cols: 2
                 spacing: dp(20)
                 size_hint_y: None
-                height: dp(120)
+                height: dp(200)
 
-                MDTextField:
-                    id: new_password_input
-                    hint_text: "Entrer un nouveau mot de passe sécurisé"
-                    password: True
-                    icon_left: "lock-reset"
-                    mode: "outlined"
+
+                MDBoxLayout:
+                    orientation: "vertical"
                     size_hint: 1, None
-                    height: dp(56)
-                    pos_hint: {"center_x": 0.5}
+                    height: dp(80)
+                    MDLabel:
+                        text: "Ancien mot de passe"
+                        font_size: "14sp"
+                        halign: "left"
+                        theme_text_color: "Hint"
+                        size_hint_y: None
+                        height: dp(24)
+                    MDTextField:
+                        id: old_password_input
+                        hint_text: "Entrer l'ancien mot de passe"
+                        password: True
+                        icon_left: "lock"
+                        mode: "outlined"
+                        size_hint: 1, None
+                        height: dp(56)
+                        pos_hint: {"center_x": 0.5}
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint: 1, None
+                    height: dp(80)
+                    MDLabel:
+                        text: "Nouveau mot de passe"
+                        font_size: "14sp"
+                        halign: "left"
+                        theme_text_color: "Hint"
+                        size_hint_y: None
+                        height: dp(24)
+                    MDTextField:
+                        id: new_password_input
+                        hint_text: "Entrer le nouveau mot de passe"
+                        password: True
+                        icon_left: "lock-reset"
+                        mode: "outlined"
+                        size_hint: 1, None
+                        height: dp(56)
+                        pos_hint: {"center_x": 0.5}
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint: 1, None
+                    height: dp(80)
+                    MDLabel:
+                        text: "Confirmer le mot de passe"
+                        font_size: "14sp"
+                        halign: "left"
+                        theme_text_color: "Hint"
+                        size_hint_y: None
+                        height: dp(24)
+                    MDTextField:
+                        id: confirm_password_input
+                        hint_text: "Confirmer le nouveau mot de passe"
+                        password: True
+                        icon_left: "lock-check"
+                        mode: "outlined"
+                        size_hint: 1, None
+                        height: dp(56)
+                        pos_hint: {"center_x": 0.5}
 
                 MDButton:
                     style: "elevated"
@@ -86,10 +140,6 @@
                         icon: "key-change"
                     MDButtonText:
                         text: "Changer le mot de passe"
-
-                MDWidget:
-                    size_hint: 1, None
-                    height: dp(56)
 
                 MDButton:
                     style: "outlined"

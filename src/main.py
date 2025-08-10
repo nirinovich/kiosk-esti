@@ -30,6 +30,7 @@ class EpicerieApp(MDApp):
         self.utilisateur_role = None
         self.utilisateur_id = None  # Stocke l'id de l'utilisateur connecté
         self.utilisateur_nom = None  # Stocke le nom de l'utilisateur connecté
+        self.utilisateur_email = None  # Stocke l'email de l'utilisateur connecté
         self.sm = None
         self.icon = "assets/logo.png"
     

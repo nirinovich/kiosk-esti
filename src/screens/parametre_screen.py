@@ -34,13 +34,34 @@ class ParametreScreen(Screen):
         popup.open()
 
     def changer_mot_de_passe(self):
+        old_password = self.ids.old_password_input.text
         new_password = self.ids.new_password_input.text
-        if not new_password:
-            self.show_dialog("Erreur", "Veuillez entrer un nouveau mot de passe.")
+        confirm_password = self.ids.confirm_password_input.text
+        if not old_password or not new_password or not confirm_password:
+            self.show_dialog("Erreur", "Veuillez remplir tous les champs.")
             return
-        # Ici, ajoute la logique réelle de changement de mot de passe
-        self.show_dialog("Succès", "Mot de passe changé (simulation).")
-        self.ids.new_password_input.text = ""
+        if new_password != confirm_password:
+            self.show_dialog("Erreur", "Les mots de passe ne correspondent pas.")
+            return
+        app = MDApp.get_running_app()
+        email = getattr(app, "utilisateur_email", None)
+        if not email:
+            self.show_dialog("Erreur", "Impossible de récupérer l'email utilisateur.")
+            return
+        from controllers.utilisateur_controller import UtilisateurController
+        from models.utilisateurs import verifier_utlisateur
+        utilisateur = verifier_utlisateur(email, old_password)
+        if not utilisateur:
+            self.show_dialog("Erreur", "Ancien mot de passe incorrect.")
+            return
+        try:
+            UtilisateurController().changer_mot_de_passe(email, new_password)
+            self.show_dialog("Succès", "Mot de passe changé avec succès.")
+            self.ids.old_password_input.text = ""
+            self.ids.new_password_input.text = ""
+            self.ids.confirm_password_input.text = ""
+        except Exception as e:
+            self.show_dialog("Erreur", f"Erreur lors du changement : {str(e)}")
 
     def toggle_theme(self):
         app = MDApp.get_running_app()

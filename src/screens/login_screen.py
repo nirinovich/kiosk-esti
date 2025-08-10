@@ -21,6 +21,7 @@ class LoginScreen(Screen):
             app.utilisateur_role = role
             app.utilisateur_id = utilisateur[0]  # Stocke l'id utilisateur
             app.utilisateur_nom = nom  # Stocke le nom utilisateur
+            app.utilisateur_email = email  # Stocke l'email utilisateur
             app.ajouter_ecrans_utilisateur()  # Recrée les écrans avec le bon id
             app.ajouter_vente_screen_utilisateur()  # Recrée l'écran vente avec le bon id
             self.manager.current = "home" 
