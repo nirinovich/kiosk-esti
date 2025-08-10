@@ -2,7 +2,16 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from kivy.app import App
+from kivymd.app import MDApp
+
+import logging
+logging.getLogger('matplotlib').setLevel(logging.WARNING)
+
+import matplotlib.pyplot as plt
+plt.figure()
+plt.plot([0, 1], [0, 1])
+plt.close()
+
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.clock import Clock
 from kivy.lang import Builder
@@ -14,11 +23,9 @@ from screens.vente_screen import VenteScreen
 from screens.login_screen import LoginScreen
 from screens.register_screen import RegisterScreen
 from screens.home_screen import HomeScreen
-from kivymd.app import MDApp
 from screens.parametre_screen import ParametreScreen
 from screens.stock_screen import StockScreen
 from screens.statistique_screen import StatistiqueScreen
-
 
 class EpicerieApp(MDApp):
     def __init__(self, **kwargs):
@@ -45,10 +52,8 @@ class EpicerieApp(MDApp):
         self.ajouter_ecrans_utilisateur()
         self.ajouter_vente_screen_utilisateur()
 
-        # Afficher d'abord l'écran de chargement
         self.sm.current = "loading"
 
-        # Attendre un court instant puis passer à "login"
         Clock.schedule_once(self.switch_to_login, 2.5)
         return self.sm
 

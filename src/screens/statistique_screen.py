@@ -1,13 +1,19 @@
+import logging
+logging.getLogger('matplotlib').setLevel(logging.WARNING)
+
+import matplotlib
+matplotlib.use('Agg')
+
+import matplotlib.pyplot as plt
+import numpy as np
+import io
+
 from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
 from kivy.properties import StringProperty, ListProperty
 from kivy.uix.image import Image
 from kivy.graphics.texture import Texture
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import numpy as np
-import io
+
 from kivy.app import App
 from controllers.vente_controller import VenteController
 from models.detail_vente import get_details_par_vente
