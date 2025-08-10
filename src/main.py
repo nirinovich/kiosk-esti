@@ -4,9 +4,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from kivymd.app import MDApp
 
-import logging
-logging.getLogger('matplotlib').setLevel(logging.WARNING)
-
 import matplotlib.pyplot as plt
 plt.figure()
 plt.plot([0, 1], [0, 1])
@@ -34,6 +31,7 @@ class EpicerieApp(MDApp):
         self.utilisateur_id = None  # Stocke l'id de l'utilisateur connecté
         self.utilisateur_nom = None  # Stocke le nom de l'utilisateur connecté
         self.sm = None
+        self.icon = "assets/logo.png"
     
     def build(self):
         # Charger le KV du loading
